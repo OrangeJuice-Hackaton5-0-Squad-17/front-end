@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+  <img src=".github/logo.svg" alt="Logo"><br /><br />
+</h1>
 
-## Getting Started
+<h3 align="center">
+  Orange Portfolios - The better way to grow your ideas
+</h3>
 
-First, run the development server:
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
+  <a href="https://www.linkedin.com/in/OrangeJuice-Hackaton5-0-Squad-17/"><img alt="Made by" src="https://img.shields.io/badge/made%20by-Squad%2017-orange"></a>
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
+  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange"></a>
+  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/issues"><img alt="Repository issues" src="https://img.shields.io/github/issues/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange"></a>
+  <img alt="GitHub" src="https://img.shields.io/github/license/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
+</p>
+
+<p align="center">
+  <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
+
+<img alt="Layout" src=".github/mockup.png">
+
+## 🟠 About the project
+
+This project was developed on the Orange Juice training program by [FCamara](https://tech.orangejuice.com.br/programadeformacao) &nbsp;&nbsp;🧡
+
+With the idea to help people on their organization problems, this software provides a flow to create projects which you can share with your friends and see other ones around you. In the end, you can send a text message using the whatsapp or an email, and make the world better constructing ideas.
+
+## 🚀 Technologies
+
+Technologies that I used to develop this application
+
+- [Next.js](https://nextjs.org/)
+- [ReactJS](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Icons](https://react-icons.netlify.com/#/)
+- [EditorConfig](https://editorconfig.org/)
+
+## 💻 Getting started
+
+### Requirements
+
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://classic.yarnpkg.com/)
+
+**Clone the project and access the folder**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ git clone https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end.git && cd front-end
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Install dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+$ npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Follow the steps below**
 
-## Learn More
+_Obs.: Before to continue, be sure to have the API running_
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Be sure the file 'src/services/api.ts' have the IP to your API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Start the client
+$ npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🤔 How to contribute
 
-## Deploy on Vercel
+**Make a fork of this repository**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# Fork using GitHub official command line
+# If you don't have the GitHub CLI, use the web site to do that.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+$ gh repo fork OrangeJuice-Hackaton5-0-Squad-17/front-end
+```
+
+**Follow the steps below**
+
+```bash
+# Clone your fork
+$ git clone your-fork-url && cd front-end
+
+# Create a branch with your feature
+$ git checkout -b my-feature
+
+# Make the commit with your changes
+$ git commit -m 'feature/my new feature'
+
+# Send the code to your remote branch
+$ git push origin my-feature
+```
+
+After your pull request is merged, you can delete your branch
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with 🧡&nbsp; by Squad-17 👋
