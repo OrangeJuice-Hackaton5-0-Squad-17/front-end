@@ -1,12 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { BsEyeSlashFill } from 'react-icons/bs'
-import Button from '@mui/material/Button'
+import {
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
+} from '@mui/material'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useAuth } from '@/hooks/useAuth'
 
@@ -32,6 +42,16 @@ interface Account {
 }
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false)
+
+  function handleClickShowPassword() {
+    setShowPassword((show) => !show)
+  }
+
+  function handleMouseDownPassword(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+  }
+
   const { user, signInWithGoogle } = useAuth()
 
   const { register, handleSubmit, formState, reset } =
@@ -101,30 +121,42 @@ export default function SignIn() {
             <span className="text-2xl text-[#515255]">
               Faça login com email
             </span>
-            <div className="mt-2">
-              <label className="text-xs tracking-wide" htmlFor="username">
-                Email address
-              </label>
-              <input
-                className="w-full h-14 border border-[#0000003B] self-stretch py-4 px-3 rounded mb-4"
+            <div className="w-full flex flex-col items-center justify-center gap-2 mt-3">
+              <TextField
+                className="w-full"
                 type="text"
-                id="username"
-                required
+                id="outlined-basic"
+                label="Email address"
+                variant="outlined"
                 {...register('email')}
               />
-            </div>
-            <div className="relative">
-              <label className="text-xs tracking-wide" htmlFor="password">
-                Password
-              </label>
-              <input
-                className="w-full h-14 border border-[#0000003B] self-stretch py-4 px-3 rounded"
-                type="password"
-                id="password"
-                required
-                {...register('password')}
-              />
-              <BsEyeSlashFill className="text-[#0000008A] text-2xl absolute top-1/2 right-3" />
+              <FormControl
+                className="w-full"
+                sx={{ m: 1, width: '25ch' }}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                  {...register('password')}
+                />
+              </FormControl>
             </div>
             <Button
               type="submit"
