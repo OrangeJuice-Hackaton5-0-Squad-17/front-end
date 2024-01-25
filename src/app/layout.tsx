@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
+// import '@/services/firebase'
+
 // import { Header } from '@/components/Header'
 
 import './globals.css'
