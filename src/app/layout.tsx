@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-// import '@/services/firebase'
+import '@/services/firebase'
 
 import { AuthContextProvider } from '@/contexts/AuthContext'
 

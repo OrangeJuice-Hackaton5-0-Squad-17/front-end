@@ -1,11 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { BsEyeSlashFill } from 'react-icons/bs'
 import Button from '@mui/material/Button'
+
+import { useAuth } from '@/hooks/useAuth'
 
 import backgroundImg from '@/assets/images/background-sign-in.svg'
 
@@ -29,6 +32,8 @@ interface Account {
 }
 
 export default function SignIn() {
+  const { user, signInWithGoogle } = useAuth()
+
   const { register, handleSubmit, formState, reset } =
     useForm<NewAccountFormData>({
       resolver: zodResolver(newAccountFormValidationSchema),
@@ -37,6 +42,14 @@ export default function SignIn() {
         password: '',
       },
     })
+
+  async function handleSignInWithProvider() {
+    if (!user) {
+      await signInWithGoogle()
+    }
+
+    redirect(`/${user?.id}/projects`)
+  }
 
   // eslint-disable-next-line
   function handleCreateNewAccount(data: Account) {
@@ -66,7 +79,10 @@ export default function SignIn() {
       <section className="flex flex-1 flex-col items-center justify-center p-6">
         <h1 className="text-5xl text-[#222244]">Entre no Orange Portfólio</h1>
         <div className="flex items-center justify-center">
-          <button className="px-4 py-2 mt-8 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
+          <button
+            className="px-4 py-2 mt-8 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150"
+            onClick={handleSignInWithProvider}
+          >
             <Image
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="google logo"
