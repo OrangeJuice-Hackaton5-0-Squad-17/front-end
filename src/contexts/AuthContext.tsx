@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, createContext, ReactNode } from 'react'
 
 import { auth, firebase } from '@/services/firebase'
