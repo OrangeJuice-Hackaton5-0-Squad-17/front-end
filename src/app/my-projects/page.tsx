@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import ProfilePicture from '../../../public/assets/profile-picture.png'
 
-export default function MeusProjetos() {
+export default function MyProjects() {
     return (
         <>
             <section className="my-profile">
