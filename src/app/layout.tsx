@@ -3,6 +3,8 @@ import { Roboto } from 'next/font/google'
 
 // import '@/services/firebase'
 
+import { AuthContextProvider } from '@/contexts/AuthContext'
+
 // import { Header } from '@/components/Header'
 
 import './globals.css'
@@ -28,8 +30,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={roboto.className}>
         <main className="max-w-7xl mx-auto py-2">
-          {/* <Header /> */}
-          {children}
+          <AuthContextProvider>
+            {/* <Header /> */}
+            {children}
+          </AuthContextProvider>
         </main>
       </body>
     </html>
