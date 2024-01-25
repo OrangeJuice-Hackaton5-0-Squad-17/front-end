@@ -16,10 +16,10 @@ export function Header() {
             <nav className="">
                 <ul className="flex gap-6 list-none">
                     <li>
-                        <Link href="/meus-projetos">Meus projetos</Link>
+                        <Link href="/my-projects">Meus projetos</Link>
                     </li>
                     <li>
-                        <Link href="/descobrir">Descobrir</Link>
+                        <Link href="/discover">Descobrir</Link>
                     </li>
                 </ul>
             </nav>
