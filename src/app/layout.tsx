@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-import { Header } from './components/Header'
+// import { Header } from './components/Header'
 
 import './globals.css'
 
@@ -25,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        {/* <Header /> */}
-        {children}
+        <main className="max-w-7xl mx-auto py-2 px-4">
+          {/* <Header /> */}
+          {children}
+        </main>
       </body>
     </html>
   )
