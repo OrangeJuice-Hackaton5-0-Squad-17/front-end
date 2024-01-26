@@ -25,8 +25,6 @@ export default function Discover() {
                             </ul>
                         </div>
                     </article>
-
-
                 </section>
             </section>
         </>
