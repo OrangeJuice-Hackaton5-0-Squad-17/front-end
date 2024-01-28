@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
+    "aos": "^3.0.0-beta.6",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
+    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
