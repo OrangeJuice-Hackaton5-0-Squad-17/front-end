@@ -83,10 +83,10 @@ export default function SignUp() {
 
   return (
     <main className="min-h-screen w-full flex items-center justify-center p-4">
-      <aside className="hidden lg:inline lg:w-[549px]">
+      <aside data-aos="fade-right" className="hidden lg:inline lg:w-[549px]">
         <Image src={backgroundImg} alt="sign up background image" priority />
       </aside>
-      <section className="w-full">
+      <section data-aos="fade-left" className="w-full">
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-center text-2xl lg:text-5xl text-[#222244] mb-8">
             Cadastre-se
