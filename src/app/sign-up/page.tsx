@@ -29,7 +29,7 @@ const newAccountFormValidationSchema = zod.object({
     .email('This is not a valid email!')
     .refine(
       // eslint-disable-next-line
-      (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+      (email) => !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
       'This email is not in our database!',
     ),
   password: zod.string().min(8, 'Password needs to be at least 8 characters!'),
@@ -82,30 +82,36 @@ export default function SignUp() {
   console.log(formState.errors)
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <aside className="max-w-[549px]">
+    <main className="min-h-screen w-full flex items-center justify-center p-4">
+      <aside className="hidden lg:inline lg:w-[549px]">
         <Image src={backgroundImg} alt="sign up background image" priority />
       </aside>
-      <section className="flex flex-1 flex-col items-center justify-center">
-        <div className="w-[517px]">
-          <h1 className="text-center text-5xl text-[#222244 leading-10 mb-8">
+      <section className="w-full">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-center text-2xl lg:text-5xl text-[#222244] mb-8">
             Cadastre-se
           </h1>
           <form
             onSubmit={handleSubmit(handleCreateNewAccount)}
             className="flex flex-col gap-4"
           >
-            <Box className="flex items-center justify-between">
+            <Box
+              className="lg:flex lg:items-center lg:justify-between lg:gap-4"
+              sx={{
+                '& .MuiTextField-root': { width: '100%' },
+              }}
+            >
               <TextField
+                className="mb-4 md:m-0"
                 type="text"
-                id="outlined-basic"
+                id="outlined-input-name"
                 label="Nome *"
                 variant="outlined"
                 {...register('name')}
               />
               <TextField
                 type="text"
-                id="outlined-basic"
+                id="outlined-input-surname"
                 label="Sobrenome *"
                 variant="outlined"
                 {...register('surname')}
@@ -113,7 +119,7 @@ export default function SignUp() {
             </Box>
             <TextField
               type="text"
-              id="outlined-basic"
+              id="outlined-input-email"
               label="Email address"
               variant="outlined"
               {...register('email')}
@@ -143,7 +149,7 @@ export default function SignUp() {
             </FormControl>
             <Button
               type="submit"
-              className="w-full h-10 text-white text-sm font-medium tracking-wide uppercase mt-4 bg-[#ff5522] hover:bg-[#cc4400]"
+              className="h-[42px] text-white text-sm font-medium tracking-wide uppercase mt-4 bg-[#ff5522] hover:bg-[#cc4400]"
               variant="contained"
               color="inherit"
               size="large"
