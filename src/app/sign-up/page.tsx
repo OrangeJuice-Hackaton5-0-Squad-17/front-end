@@ -102,7 +102,7 @@ export default function SignUp() {
               }}
             >
               <TextField
-                className="mb-4 md:m-0"
+                className="mb-4 lg:m-0"
                 type="text"
                 id="outlined-input-name"
                 label="Nome *"
