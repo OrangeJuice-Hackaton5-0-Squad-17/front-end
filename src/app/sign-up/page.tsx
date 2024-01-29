@@ -88,7 +88,7 @@ export default function SignUp() {
       </aside>
       <section data-aos="fade-left" className="w-full">
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-center text-2xl lg:text-5xl text-[#222244] mb-8">
+          <h1 className="text-center text-2xl md:text-5xl text-[#222244] mb-8">
             Cadastre-se
           </h1>
           <form
@@ -102,7 +102,7 @@ export default function SignUp() {
               }}
             >
               <TextField
-                className="mb-4 md:m-0"
+                className="mb-4 lg:m-0"
                 type="text"
                 id="outlined-input-name"
                 label="Nome *"

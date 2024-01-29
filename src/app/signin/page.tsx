@@ -21,6 +21,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useAuth } from '@/hooks/useAuth'
 
+import { GoogleSignInButton } from '@/components/GoogleSignInButton'
+
 import backgroundImg from '@/assets/images/background-sign-in.svg'
 
 const newAccountFormValidationSchema = zod.object({
@@ -88,8 +90,8 @@ export default function SignIn() {
   }
 
   return (
-    <div className="min-h-screen grid grid-cols-2 place-items-center">
-      <aside data-aos="fade-right" className="col-span-1">
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <aside data-aos="fade-right" className="hidden lg:inline lg:w-[549px]">
         <Image
           src={backgroundImg}
           alt="sign in background image"
@@ -101,28 +103,18 @@ export default function SignIn() {
         data-aos="fade-left"
         className="flex flex-1 flex-col items-center justify-center p-6"
       >
-        <h1 className="text-5xl text-[#222244]">Entre no Orange Portfólio</h1>
-        <div className="flex items-center justify-center">
-          <button
-            className="px-4 py-2 mt-8 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150"
-            onClick={handleSignInWithProvider}
-          >
-            <Image
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="google logo"
-              width={24}
-              height={24}
-              loading="lazy"
-            />
-            <span>Entrar com Google</span>
-          </button>
-        </div>
+        <h1 className="text-2xl text-nowrap md:text-5xl text-[#222244]">
+          Entre no Orange Portfólio
+        </h1>
+        <GoogleSignInButton
+          handleSignInWithProvider={handleSignInWithProvider}
+        />
         <form
-          className="w-full p-5 mt-4"
+          className="w-[312px] md:w-[517px] p-5 mt-4"
           onSubmit={handleSubmit(handleCreateNewAccount)}
         >
           <div className="w-full flex flex-col justify-center">
-            <span className="text-2xl text-[#515255]">
+            <span className="text-base md:text-2xl text-[#515255]">
               Faça login com email
             </span>
             <div className="w-full flex flex-col items-center justify-center gap-2 mt-3">
