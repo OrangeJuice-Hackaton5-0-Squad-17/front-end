@@ -1,13 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-import '@/services/firebase'
-
-import { AOSInit } from '@/app/aos'
-
-import { AuthContextProvider } from '@/contexts/AuthContext'
-
-// import { Header } from '@/components/Header'
+import { Header } from '@/components/Header'
 
 import './globals.css'
 
@@ -33,13 +27,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
-      <AOSInit />
+      
       <body className={roboto.className}>
+        <Header />
+        
         <main className="max-w-7xl mx-auto py-2 px-4">
-          <AuthContextProvider>
-            {/* <Header /> */}
             {children}
-          </AuthContextProvider>
         </main>
       </body>
     </html>
