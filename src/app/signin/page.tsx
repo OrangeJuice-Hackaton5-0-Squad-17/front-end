@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
@@ -170,9 +171,12 @@ export default function SignIn() {
             >
               Entrar
             </Button>
-            <button className="w-full flex items-start text-base text-[#818388] mt-4">
+            <Link
+              href="sign-up"
+              className="w-full flex items-start text-base text-[#818388] mt-4"
+            >
               Cadastre-se
-            </button>
+            </Link>
           </div>
         </form>
       </section>
