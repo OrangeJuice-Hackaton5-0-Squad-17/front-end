@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
-// import { Header } from './components/Header'
+import '@/services/firebase'
 
 import { AOSInit } from '@/app/aos'
+
+import { AuthContextProvider } from '@/contexts/AuthContext'
+
+// import { Header } from '@/components/Header'
 
 import './globals.css'
 
@@ -25,15 +29,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
       <AOSInit />
       <body className={roboto.className}>
         <main className="max-w-7xl mx-auto py-2 px-4">
-          {/* <Header /> */}
-          {children}
+          <AuthContextProvider>
+            {/* <Header /> */}
+            {children}
+          </AuthContextProvider>
         </main>
       </body>
     </html>

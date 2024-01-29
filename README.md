@@ -1,6 +1,5 @@
 <h1 align="center">
   <img src=".github/logo.svg" alt="Logo"><br /><br />
-  <img src=".github/mockup.png" alt="Logo Image" height="200">
 </h1>
 
 <h3 align="center">
@@ -8,12 +7,12 @@
 </h3>
 
 <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=%ff9c00">
-  <a href="https://www.linkedin.com/in/OrangeJuice-Hackaton5-0-Squad-17/"><img alt="Made by" src="https://img.shields.io/badge/made%20by-Squad%2017-%ff9c00"></a>
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=%ff9c00">
-  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=%ff9c00"></a>
-  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/issues"><img alt="Repository issues" src="https://img.shields.io/github/issues/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=%ff9c00"></a>
-  <img alt="GitHub" src="https://img.shields.io/github/license/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=%ff9c00">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
+  <a href="https://www.linkedin.com/in/OrangeJuice-Hackaton5-0-Squad-17/"><img alt="Made by" src="https://img.shields.io/badge/made%20by-Squad%2017-orange"></a>
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
+  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange"></a>
+  <a href="https://github.com/OrangeJuice-Hackaton5-0-Squad-17/front-end/issues"><img alt="Repository issues" src="https://img.shields.io/github/issues/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange"></a>
+  <img alt="GitHub" src="https://img.shields.io/github/license/OrangeJuice-Hackaton5-0-Squad-17/front-end?color=orange">
 </p>
 
 <p align="center">
@@ -26,9 +25,9 @@
 
 <img alt="Layout" src=".github/mockup.png">
 
-## :recycle: About the project
+## 🟠 About the project
 
-This project was developed on the Orange Juice training program by [FCamara](https://tech.orangejuice.com.br/programadeformacao) &nbsp;🚀&nbsp;🧡
+This project was developed on the Orange Juice training program by [FCamara](https://tech.orangejuice.com.br/programadeformacao) &nbsp;&nbsp;🧡
 
 With the idea to help people on their organization problems, this software provides a flow to create projects which you can share with your friends and see other ones around you. In the end, you can send a text message using the whatsapp or an email, and make the world better constructing ideas.
 
@@ -107,4 +106,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with 💜&nbsp; by Filipe Teixeira 👋 &nbsp;[See my linkedin](https://www.linkedin.com/in/filipebteixeira98/)
+Made with 🧡&nbsp; by Squad-17 👋
