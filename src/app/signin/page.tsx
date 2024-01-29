@@ -87,8 +87,8 @@ export default function SignIn() {
   }
 
   return (
-    <div className="max-h-screen grid grid-cols-2 place-items-center">
-      <aside className="col-span-1">
+    <div className="min-h-screen grid grid-cols-2 place-items-center">
+      <aside data-aos="fade-right" className="col-span-1">
         <Image
           src={backgroundImg}
           alt="sign in background image"
@@ -96,7 +96,10 @@ export default function SignIn() {
           priority
         />
       </aside>
-      <section className="flex flex-1 flex-col items-center justify-center p-6">
+      <section
+        data-aos="fade-left"
+        className="flex flex-1 flex-col items-center justify-center p-6"
+      >
         <h1 className="text-5xl text-[#222244]">Entre no Orange Portfólio</h1>
         <div className="flex items-center justify-center">
           <button
