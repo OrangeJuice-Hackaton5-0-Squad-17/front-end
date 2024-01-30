@@ -10,22 +10,22 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { FaTrashAlt } from 'react-icons/fa'
 
 export function DeleteModal() {
-  const [open, setOpen] = useState(false)
+  const [openedModal, setOpenedModal] = useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
+  function handleOpenDeleteModal() {
+    setOpenedModal(true)
   }
 
-  const handleClose = () => {
-    setOpen(false)
+  function handleCloseDeleteModal() {
+    setOpenedModal(false)
   }
 
   return (
     <div className="min-h-screen">
-      <Button variant="outlined" onClick={handleOpen}>
+      <Button variant="outlined" onClick={handleOpenDeleteModal}>
         <FaTrashAlt />
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openedModal} onClose={handleCloseDeleteModal}>
         <DialogTitle className="text-2xl text-[#515255]">
           Deseja Excluir?
         </DialogTitle>
@@ -41,13 +41,13 @@ export function DeleteModal() {
         <DialogActions>
           <Button
             className="h-[42px] w-[106px] bg-[#ff5522] hover:bg-[#cc4400] text-white text-base font-semibold uppercase"
-            onClick={handleClose}
+            onClick={handleCloseDeleteModal}
           >
             Excluir
           </Button>
           <Button
             className="h-[42px] w-[124px] bg-[#dddee0] hover:bg-[#d3d3d3] text-[#818388] text-base font-semibold uppercase"
-            onClick={handleClose}
+            onClick={handleCloseDeleteModal}
             autoFocus
           >
             Cancelar

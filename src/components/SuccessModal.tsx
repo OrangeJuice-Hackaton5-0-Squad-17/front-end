@@ -12,11 +12,11 @@ import successImg from '@/assets/images/success.svg'
 export function SuccessModal() {
   const [openedModal, setOpenedModal] = useState(false)
 
-  const handleOpenSuccessModal = () => {
+  function handleOpenSuccessModal() {
     setOpenedModal(true)
   }
 
-  const handleCloseSuccessModal = () => {
+  function handleCloseSuccessModal() {
     setOpenedModal(false)
   }
 
