@@ -49,11 +49,11 @@ export function SuccessModal() {
               <Image src={successImg} alt="success image" width={40} priority />
               <Button
                 onClick={handleCloseSuccessModal}
-                className="h-[42px] w-full bg-[#ff5522] border-none text-base text-white font-bold mt-8"
+                className="h-[42px] w-full bg-[#ff5522] border-none text-base text-white font-bold uppercase mt-8"
                 variant="outlined"
                 color="primary"
               >
-                Close
+                Voltar para projetos
               </Button>
             </Box>
           </Box>

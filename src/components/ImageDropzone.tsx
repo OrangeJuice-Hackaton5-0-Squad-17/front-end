@@ -28,9 +28,9 @@ export function ImageDropzone({ onDrop }: ImageDropzoneProps) {
       <p className="text-base text-[#515255] mb-4">
         Selecione o conteúdo que você deseja fazer upload
       </p>
-      <div className="w-full h-[304px] bg-[#e6e9f2] rounded">
+      <div className="w-full h-[304px] bg-[#e6e9f2] rounded cursor-pointer">
         <div className="w-full h-full flex flex-col items-center justify-center">
-          <input className="flex-1" {...getInputProps()} />
+          <input className="w-full h-full" {...getInputProps()} />
           <Image src={dropzoneIcon} alt="dropzone icon" width={46} priority />
           <span className="text-base text-center text-[#303133] mt-4">
             Compartilhe seu talento com milhares de pessoas
