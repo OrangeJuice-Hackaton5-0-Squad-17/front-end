@@ -1,31 +1,73 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from 'react'
-import Button from '@mui/material/Button'
-import Modal from '@mui/material/Modal'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
+import { useState } from 'react'
+import {
+  Button,
+  Modal,
+  Box,
+  TextField,
+  TextareaAutosize,
+  Typography,
+} from '@mui/material'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import { ImageDropzone } from './ImageDropzone'
-import { Typography } from '@mui/material'
 
-interface FormDataProps {
-  image: File | null
+interface CreateProjectFormDataProps {
+  image?: File | null
   title: string
   tags: string
   link: string
   description: string
 }
 
+const MAX_FILE_SIZE = 5000000
+
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+]
+
+const createProjectFormSchema = z.object({
+  image: z
+    .any()
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max image size is 5MB!`,
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    ),
+  title: z.string().min(1).max(50),
+  tags: z.string().min(1).max(50),
+  link: z.string().min(1).max(50),
+  description: z.string().min(1).max(200),
+})
+
+type CreateProjectFormData = z.infer<typeof createProjectFormSchema>
+
 export function CreateProjectModal() {
   const [openedModal, setOpenedModal] = useState(false)
 
-  const [formData, setFormData] = useState<FormDataProps>({
-    image: null,
-    title: '',
-    tags: '',
-    link: '',
-    description: '',
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<CreateProjectFormData>({
+    resolver: zodResolver(createProjectFormSchema),
+    defaultValues: {
+      title: '',
+      tags: '',
+      link: '',
+      description: '',
+      image: null,
+    },
   })
 
   function handleOpenCreateProjectModal() {
@@ -37,28 +79,16 @@ export function CreateProjectModal() {
   }
 
   function handleImageDrop(file: File) {
-    setFormData({
-      ...formData,
-      image: file,
-    })
+    setValue('image', file)
   }
 
-  function handleInputChange(name: keyof FormDataProps) {
-    return (event: ChangeEvent<HTMLInputElement>) => {
-      setFormData({
-        ...formData,
-        [name]: event.target.value,
-      })
-    }
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    console.log('Form submitted:', formData)
+  const onSubmit: SubmitHandler<CreateProjectFormDataProps> = (data) => {
+    console.log('Form submitted:', data)
 
     handleCloseCreateProjectModal()
   }
+
+  console.log(errors?.image?.message)
 
   return (
     <div className="text-center">
@@ -84,41 +114,61 @@ export function CreateProjectModal() {
           >
             Adicionar projeto
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Box className="flex">
               <ImageDropzone onDrop={handleImageDrop} />
               <Box className="w-full md:w-[413px] flex flex-col items-center justify-center mx-auto">
-                <TextField
-                  label="Título"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.title}
-                  onChange={handleInputChange('title')}
+                <Controller
+                  name="title"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      label="Título"
+                      fullWidth
+                      margin="normal"
+                      variant="outlined"
+                      {...field}
+                    />
+                  )}
                 />
-                <TextField
-                  label="Tags"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.tags}
-                  onChange={handleInputChange('tags')}
+                <Controller
+                  name="tags"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      label="Tags"
+                      fullWidth
+                      margin="normal"
+                      variant="outlined"
+                      {...field}
+                    />
+                  )}
                 />
-                <TextField
-                  label="Link"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.link}
-                  onChange={handleInputChange('link')}
+                <Controller
+                  name="link"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      label="Link"
+                      fullWidth
+                      margin="normal"
+                      variant="outlined"
+                      {...field}
+                    />
+                  )}
                 />
-                <TextField
-                  label="Descrição"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.description}
-                  onChange={handleInputChange('description')}
+                <Controller
+                  name="description"
+                  control={control}
+                  render={({ field }) => (
+                    <TextareaAutosize
+                      aria-label="description textarea"
+                      minRows={3}
+                      placeholder="Descrição"
+                      className="w-full min-h-[120px] max-h-[120px] border border-gray-300 rounded p-2 mt-4"
+                      {...field}
+                    />
+                  )}
                 />
               </Box>
             </Box>
