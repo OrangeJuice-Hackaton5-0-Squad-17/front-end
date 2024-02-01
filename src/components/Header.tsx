@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem'
 
 import OrangeLogo from '@/assets/images/logo.svg'
 import ProfilePicture from '@/assets/images/default-profile-picture.svg'
-// import { useWindowSize } from '@/hooks/useWindowsSize'
+import { useWindowSize } from '@/hooks/useWindowsSize'
 
 const pages = [
   {
@@ -34,7 +34,7 @@ export function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   )
-  // const size = useWindowSize()
+  const size = useWindowSize()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -53,11 +53,10 @@ export function Header() {
 
   return (
     <header
-      className={`bg-[#111133] text-white flex md:gap-24 items-center py-4 px-8 `}
+      className={`bg-[#111133] text-white flex md:gap-24 items-center py-4 ${size.width <= 375 ? 'px-3' : 'px-8'} `}
     >
-      {/* ${size.width <= 375 ? 'px-3' : 'px-8'} */}
       <Toolbar disableGutters className="min-h-0 max-w-7xl mx-auto w-full">
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="large"
             aria-label="account of current user"
