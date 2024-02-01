@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
+import '@/services/firebase'
+
+import { AOSInit } from '@/app/aos'
+
+import { AuthContextProvider } from '@/contexts/AuthContext'
+
 import { Header } from '@/components/Header'
 
 import './globals.css'
@@ -13,8 +19,8 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Orange Portfolios',
-  description: 'The better way to grow your ideas',
+  title: 'Orange Portfolio',
+  description: 'The best way to grow your ideas',
 }
 
 export default function RootLayout({
@@ -29,11 +35,11 @@ export default function RootLayout({
       </head>
       
       <body className={roboto.className}>
-        <Header />
-        
-        <main className="max-w-7xl mx-auto py-2 px-4">
-            {children}
-        </main>
+        <AuthContextProvider>
+          <Header />
+
+          <main className="max-w-7xl mx-auto py-2">{children}</main>
+        </AuthContextProvider>
       </body>
     </html>
   )

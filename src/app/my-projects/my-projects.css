@@ -5,7 +5,7 @@
 }
 
 #generic-image-box::before {
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 7px;
     border-top: none;
     border-right: none;
     border-left: 5px solid #323232;
@@ -13,8 +13,8 @@
     content: "";
     padding: 17px;
     position: absolute;
-    bottom: 22%;
-    left: 18%;
+    bottom: 19%;
+    left: 19%;
 }
 
 #generic-image-icon {
