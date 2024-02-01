@@ -33,7 +33,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
-      
+      <AOSInit />
       <body className={roboto.className}>
         <AuthContextProvider>
           <Header />
