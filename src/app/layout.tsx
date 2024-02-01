@@ -38,7 +38,7 @@ export default function RootLayout({
         <AuthContextProvider>
           <Header />
 
-          <main className="max-w-7xl mx-auto py-2 px-4">{children}</main>
+          <main className="max-w-7xl mx-auto py-2">{children}</main>
         </AuthContextProvider>
       </body>
     </html>
