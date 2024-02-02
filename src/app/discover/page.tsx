@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import ProjectImageMock from '@/assets/images/project-image-mock.webp'
-import ProfilePicture from '../../../public/assets/profile-picture.png'
+import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 
 export default function Discover() {
     return (
