@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 import * as React from 'react'
 import Box from '@mui/material/Box'
@@ -25,6 +26,21 @@ const pages = [
   {
     label: 'Descobrir',
     path: 'discover',
+  },
+]
+
+const profileOptions = [
+  {
+    label: 'My profile',
+    handleOnClick: () => {
+      redirect('/my-profile')
+    },
+  },
+  {
+    label: 'Logout',
+    handleOnClick: () => {
+      // implement here the logout function
+    },
   },
 ]
 
@@ -62,7 +78,7 @@ export function Header() {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
-            color="inherit"
+            color="inherit" className='pl-0'
           >
             <MenuIcon />
           </IconButton>
@@ -148,9 +164,16 @@ export function Header() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={handleCloseUserMenu}>
-              <p className="text-center">Logout</p>
-            </MenuItem>
+            {profileOptions.map((profileOption) => (
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu()
+                  profileOption.handleOnClick()
+                }}
+              >
+                <p className="text-center">{profileOption.label}</p>
+              </MenuItem>
+            ))}
           </Menu>
         </div>
 

@@ -37,8 +37,9 @@ export default function RootLayout({
       <body className={roboto.className}>
         <AuthContextProvider>
           <Header />
-
-          <main className="max-w-7xl mx-auto py-2">{children}</main>
+          <main className="py-14 px-8">
+            <div className="wrapper max-w-7xl mx-auto w-full">{children}</div>
+          </main>
         </AuthContextProvider>
       </body>
     </html>
