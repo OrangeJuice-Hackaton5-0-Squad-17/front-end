@@ -1,21 +1,24 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
+import {
+  Box,
+  Toolbar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
 
-import OrangeLogo from '@/assets/images/logo.svg'
-import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 import { useWindowSize } from '@/hooks/useWindowsSize'
+
+import logoImg from '@/assets/images/logo.svg'
+import profileImg from '@/assets/images/default-profile-picture.svg'
 
 const pages = [
   {
@@ -29,10 +32,10 @@ const pages = [
 ]
 
 export function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null,
-  )
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+
   const size = useWindowSize()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -84,8 +87,9 @@ export function Header() {
               display: { xs: 'block', md: 'none' },
             }}
           >
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Link
+                key={index}
                 className="text-center"
                 href={page.path}
                 onClick={handleCloseNavMenu}
@@ -95,16 +99,14 @@ export function Header() {
             ))}
           </Menu>
         </Box>
-
         <Link className="mr-24" href="my-projects">
           <Image
-            src={OrangeLogo}
-            alt="Orange Portfolio Logo"
+            src={logoImg}
+            alt="orange portfolios Logo"
             width={110}
             priority
           />
         </Link>
-
         <Box
           sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: '24px' }}
         >
@@ -119,14 +121,13 @@ export function Header() {
             </button>
           ))}
         </Box>
-
-        <div className="flex items-center gap-4 ml-auto">
-          <Tooltip title="Profile Options">
+        <Box className="flex items-center gap-4 ml-auto">
+          <Tooltip title="profile options">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Image
                 className="rounded-full"
-                alt="User Profile Picture"
-                src={ProfilePicture}
+                alt="user profile picture"
+                src={profileImg}
                 width={40}
                 priority
               />
@@ -149,11 +150,10 @@ export function Header() {
             onClose={handleCloseUserMenu}
           >
             <MenuItem onClick={handleCloseUserMenu}>
-              <p className="text-center">Logout</p>
+              <Typography className="text-center">Logout</Typography>
             </MenuItem>
           </Menu>
-        </div>
-
+        </Box>
         <NotificationsIcon className="ml-4" />
       </Toolbar>
     </header>
