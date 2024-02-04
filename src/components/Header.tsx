@@ -31,13 +31,15 @@ const pages = [
 
 const profileOptions = [
   {
-    label: 'My profile',
-    handleOnClick: () => {
-      redirect('/my-profile')
-    },
+    label: 'Meu perfil',
+    path: 'my-profile',
+    isLinkOption: true,
+    handleOnClick: () => {},
   },
   {
-    label: 'Logout',
+    label: 'Deslogar',
+    path: '/sign-in',
+    isLinkOption: false,
     handleOnClick: () => {
       // implement here the logout function
     },
@@ -78,7 +80,8 @@ export function Header() {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
-            color="inherit" className='pl-0'
+            color="inherit"
+            className="pl-0"
           >
             <MenuIcon />
           </IconButton>
@@ -105,8 +108,9 @@ export function Header() {
                 className="text-center"
                 href={page.path}
                 onClick={handleCloseNavMenu}
+                key={page.label}
               >
-                <MenuItem key={page.label}>{page.label}</MenuItem>
+                <MenuItem>{page.label}</MenuItem>
               </Link>
             ))}
           </Menu>
@@ -137,7 +141,7 @@ export function Header() {
         </Box>
 
         <div className="flex items-center gap-4 ml-auto">
-          <Tooltip title="Profile Options">
+          <Tooltip title="Opções de Perfil">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Image
                 className="rounded-full"
@@ -164,16 +168,27 @@ export function Header() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {profileOptions.map((profileOption) => (
-              <MenuItem
-                onClick={() => {
-                  handleCloseUserMenu()
-                  profileOption.handleOnClick()
-                }}
-              >
-                <p className="text-center">{profileOption.label}</p>
-              </MenuItem>
-            ))}
+            {profileOptions.map((profileOption) =>
+              profileOption.isLinkOption ? (
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  key={profileOption.label}
+                >
+                  <Link className="block" href={profileOption.path}>
+                    {profileOption.label}
+                  </Link>
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    handleCloseUserMenu()
+                    profileOption.handleOnClick()
+                  }}
+                >
+                  <p className="block w-full">{profileOption.label}</p>
+                </MenuItem>
+              ),
+            )}
           </Menu>
         </div>
 

@@ -81,7 +81,7 @@ export default function SignUp() {
   console.log(formState.errors)
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center p-4">
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
       <aside data-aos="fade-right" className="hidden lg:inline lg:w-[549px]">
         <Image src={backgroundImg} alt="sign up background image" priority />
       </aside>
@@ -158,6 +158,6 @@ export default function SignUp() {
           </form>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

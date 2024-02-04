@@ -7,9 +7,10 @@ import { AOSInit } from '@/app/aos'
 
 import { AuthContextProvider } from '@/contexts/AuthContext'
 
-import { Header } from '@/components/Header'
-
 import './globals.css'
+
+import { Header } from '@/components/Header'
+import { Main } from '@/components/Main'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -37,9 +38,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <AuthContextProvider>
           <Header />
-          <main className="py-14 px-8">
-            <div className="wrapper max-w-7xl mx-auto w-full">{children}</div>
-          </main>
+          <Main>{children}</Main>
         </AuthContextProvider>
       </body>
     </html>
