@@ -17,9 +17,16 @@ interface EditProfileDataProps {
 }
 
 const editProfileSchema = z.object({
-  name: z.string().min(1).max(50),
-  email: z.string().min(1).max(50),
-  password: z.string().min(1).max(50),
+  name: z.string().min(3),
+  email: z
+    .string()
+    .min(1, 'This field has to be filled!')
+    .email('This is not a valid email!')
+    .refine(
+      (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/.test(email),
+      'This email is not in our database!',
+    ),
+  password: z.string().min(8, 'Password needs to be at least 8 characters!'),
 })
 
 type EditProfileData = z.infer<typeof editProfileSchema>
