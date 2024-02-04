@@ -19,7 +19,12 @@ export function ImageDropzone({ onDrop }: ImageDropzoneProps) {
   )
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
+    accept: {
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
+      'text/html': ['.html', '.htm'],
+    },
     onDrop: handleDrop,
   })
 

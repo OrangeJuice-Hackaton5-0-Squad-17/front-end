@@ -1,19 +1,23 @@
 'use client'
 
-import { useState } from 'react'
-import {
-  Button,
-  Modal,
-  Box,
-  TextField,
-  TextareaAutosize,
-  Typography,
-} from '@mui/material'
+import { Button, Modal, Box, Typography } from '@mui/material'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+
+import { useWindowSize } from '@/hooks/useWindowsSize'
+
+import {
+  createProjectFormSchema,
+  CreateProjectFormData,
+} from '@/schema/createProjectSchema'
 
 import { ImageDropzone } from './ImageDropzone'
+import { CustomTextField } from './CustomTextField'
+
+interface CreateProjectModalProps {
+  handleCloseCreateProjectModal: () => void
+  openedModal: boolean
+}
 
 interface CreateProjectFormDataProps {
   image?: File | null
@@ -23,43 +27,21 @@ interface CreateProjectFormDataProps {
   description: string
 }
 
-const MAX_FILE_SIZE = 5000000
+const formInputTypes = ['title', 'tags', 'link', 'description'] as const
 
-const ACCEPTED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp',
-]
+const formattedFormInputTypes = ['Título', 'Tags', 'Link', 'Descrição']
 
-const createProjectFormSchema = z.object({
-  image: z
-    .any()
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max image size is 5MB!`,
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      'Only .jpg, .jpeg, .png and .webp formats are supported.',
-    ),
-  title: z.string().min(1).max(50),
-  tags: z.string().min(1).max(50),
-  link: z.string().min(1).max(50),
-  description: z.string().min(1).max(200),
-})
-
-type CreateProjectFormData = z.infer<typeof createProjectFormSchema>
-
-export function CreateProjectModal() {
-  const [openedModal, setOpenedModal] = useState(false)
-
+export function CreateProjectModal({
+  handleCloseCreateProjectModal,
+  openedModal,
+}: CreateProjectModalProps) {
   const {
     handleSubmit,
     control,
     setValue,
     formState: { errors },
   } = useForm<CreateProjectFormData>({
+    mode: 'all',
     resolver: zodResolver(createProjectFormSchema),
     defaultValues: {
       title: '',
@@ -70,13 +52,7 @@ export function CreateProjectModal() {
     },
   })
 
-  function handleOpenCreateProjectModal() {
-    setOpenedModal(true)
-  }
-
-  function handleCloseCreateProjectModal() {
-    setOpenedModal(false)
-  }
+  const size = useWindowSize()
 
   function handleImageDrop(file: File) {
     setValue('image', file)
@@ -91,21 +67,17 @@ export function CreateProjectModal() {
   console.log(errors?.image?.message)
 
   return (
-    <div className="text-center">
-      <Button
-        variant="contained"
-        onClick={handleOpenCreateProjectModal}
-        className="mt-4"
-      >
-        Open Form Modal
-      </Button>
+    <>
       <Modal
         open={openedModal}
         onClose={handleCloseCreateProjectModal}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+        data-aos="zoom-out"
       >
-        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-[890px] bg-white shadow-md p-8">
+        <section
+          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[312px] md:w-[680px] lg:w-[890px] bg-white shadow-md p-8 ${size.width <= 375 ? 'px-3' : 'px-8'}`}
+        >
           <Typography
             id="modal-title"
             variant="h6"
@@ -115,61 +87,26 @@ export function CreateProjectModal() {
             Adicionar projeto
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box className="flex">
+            <Box className="flex flex-col md:flex-row">
               <ImageDropzone onDrop={handleImageDrop} />
-              <Box className="w-full md:w-[413px] flex flex-col items-center justify-center mx-auto">
-                <Controller
-                  name="title"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Título"
-                      fullWidth
-                      margin="normal"
-                      variant="outlined"
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  name="tags"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Tags"
-                      fullWidth
-                      margin="normal"
-                      variant="outlined"
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  name="link"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Link"
-                      fullWidth
-                      margin="normal"
-                      variant="outlined"
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <TextareaAutosize
-                      aria-label="description textarea"
-                      minRows={3}
-                      placeholder="Descrição"
-                      className="w-full min-h-[120px] max-h-[120px] border border-gray-300 rounded p-2 mt-4"
-                      {...field}
-                    />
-                  )}
-                />
+              <Box className="w-full md:w-[413px] flex flex-col items-center justify-end mx-auto">
+                {formInputTypes.map((type, index) => (
+                  <Controller
+                    key={index}
+                    name={type}
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        label={formattedFormInputTypes[index]}
+                        multiline={type === 'description'}
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        {...field}
+                      />
+                    )}
+                  />
+                ))}
               </Box>
             </Box>
             <Box className="flex gap-4 mt-4">
@@ -177,11 +114,12 @@ export function CreateProjectModal() {
                 type="submit"
                 variant="contained"
                 color="primary"
-                className="w-[101px] h-[42px] text-[#fcfdff] text-base font-bold uppercase bg-[#ff5522] hover:bg-[#f03f0a]"
+                className="w-[101px] h-[42px] text-[#fcfdff] text-base font-bold uppercase bg-[#ff5522] hover:bg-[#c44e2a]"
               >
                 Salvar
               </Button>
               <Button
+                onClick={handleCloseCreateProjectModal}
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -191,8 +129,8 @@ export function CreateProjectModal() {
               </Button>
             </Box>
           </form>
-        </Box>
+        </section>
       </Modal>
-    </div>
+    </>
   )
 }
