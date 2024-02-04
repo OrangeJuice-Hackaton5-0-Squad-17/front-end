@@ -108,9 +108,8 @@ export function Header() {
                 className="text-center"
                 href={page.path}
                 onClick={handleCloseNavMenu}
-                key={page.label}
               >
-                <MenuItem>{page.label}</MenuItem>
+                <MenuItem key={page.label}>{page.label}</MenuItem>
               </Link>
             ))}
           </Menu>
@@ -184,6 +183,7 @@ export function Header() {
                     handleCloseUserMenu()
                     profileOption.handleOnClick()
                   }}
+                  key={profileOption.label}
                 >
                   <p className="block w-full">{profileOption.label}</p>
                 </MenuItem>

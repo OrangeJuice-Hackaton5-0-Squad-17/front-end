@@ -11,13 +11,16 @@ import PersonIcon from '@mui/icons-material/Person'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import LogoutIcon from '@mui/icons-material/Logout'
+
 import ConfirmAccountDeletionModal from '@/components/ConfirmAccountDeletionModal'
+import EditProfileModal from '@/components/EditProfileModal'
 
 export default function MyProfile() {
   const [
     openedConfirmAccountDeletionModal,
     setOpenedConfirmAccountDeletionModal,
   ] = useState(false)
+  const [openedEditProfileModal, setOpenedEditProfileModal] = useState(false)
 
   function handleOpenConfirmAccountDeletionModal() {
     setOpenedConfirmAccountDeletionModal(true)
@@ -25,6 +28,14 @@ export default function MyProfile() {
 
   function handleCloseConfirmAccountDeletionModal() {
     setOpenedConfirmAccountDeletionModal(false)
+  }
+
+  function handleOpenEditProfileModal() {
+    setOpenedEditProfileModal(true)
+  }
+
+  function handleCloseEditProfileModal() {
+    setOpenedEditProfileModal(false)
   }
 
   const userData = [
@@ -58,8 +69,11 @@ export default function MyProfile() {
   ]
 
   return (
-    <section className="flex flex-col gap-2 relative w-full">
-      <button className="absolute right-0 top-0 rounded-full flex items-center justify-center p-1.5 bg-[#FF5522] text-white hover:brightness-90 active:brightness-110 transition-all">
+    <section className="flex flex-col gap-2 relative w-full md:max-w-lg md:mx-auto">
+      <button
+        onClick={handleOpenEditProfileModal}
+        className="absolute right-0 top-0 rounded-full flex items-center justify-center p-1.5 bg-[#FF5522] text-white hover:brightness-90 active:brightness-110 transition-all"
+      >
         <EditIcon className="text-xl" />
       </button>
 
@@ -103,6 +117,11 @@ export default function MyProfile() {
         handleCloseTheConfirmAccountDeletionModal={
           handleCloseConfirmAccountDeletionModal
         }
+      />
+
+      <EditProfileModal
+        openedModal={openedEditProfileModal}
+        handleCloseEditProfileModal={handleCloseEditProfileModal}
       />
     </section>
   )
