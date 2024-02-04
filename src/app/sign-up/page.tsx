@@ -6,45 +6,44 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import Image from 'next/image'
 import {
+  Box,
   FormControl,
   InputLabel,
   OutlinedInput,
-  TextField,
-  Button,
   InputAdornment,
   IconButton,
-  Box,
+  Button,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { toast } from 'react-toastify'
 
 import backgroundImg from '@/assets/images/background-sign-up.svg'
+import { CustomTextField } from '@/components/CustomTextField'
 
 const newAccountFormValidationSchema = zod.object({
   name: zod.string().min(3),
   surname: zod.string().min(3),
   email: zod
     .string()
-    .min(1, 'This field has to be filled!')
-    .email('This is not a valid email!')
-    .refine(
-      // eslint-disable-next-line
-      (email) => !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
-      'This email is not in our database!',
-    ),
+    .min(6, 'This field has to be filled!')
+    .email('This is not a valid email!'),
+  // .refine(
+  //   // eslint-disable-next-line
+  //   (email) => !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+  //   'This email is not in our database!',
+  // ),
   password: zod.string().min(8, 'Password needs to be at least 8 characters!'),
 })
 
 type NewAccountFormData = zod.infer<typeof newAccountFormValidationSchema>
 
-interface Account {
-  name: string
-  surname: string
-  email: string
-  password: string
-}
-
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
+
+  const notifyUserAccountCreated = () =>
+    toast.success('Cadastro feito com sucesso', {
+      theme: 'colored',
+    })
 
   function handleClickShowPassword() {
     setShowPassword((show) => !show)
@@ -54,8 +53,9 @@ export default function SignUp() {
     event.preventDefault()
   }
 
-  const { register, handleSubmit, formState, reset } =
+  const { register, handleSubmit, watch, formState, getFieldState, reset } =
     useForm<NewAccountFormData>({
+      mode: 'all',
       resolver: zodResolver(newAccountFormValidationSchema),
       defaultValues: {
         name: '',
@@ -66,27 +66,33 @@ export default function SignUp() {
     })
 
   // eslint-disable-next-line
-  function handleCreateNewAccount(data: Account) {
+  function handleCreateNewAccount(data: NewAccountFormData) {
     fetch('/accounts/create', { body: undefined })
       .then((response) => {
         return response.json()
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error, formState.errors)
       })
 
     reset()
+
+    notifyUserAccountCreated()
   }
 
-  console.log(formState.errors)
+  const name = watch('name')
+
+  const surname = watch('surname')
+
+  const email = watch('email')
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center p-4">
+    <Box className="min-h-screen w-full flex items-center justify-center p-4">
       <aside data-aos="fade-right" className="hidden lg:inline lg:w-[549px]">
         <Image src={backgroundImg} alt="sign up background image" priority />
       </aside>
       <section data-aos="fade-left" className="w-full">
-        <div className="flex flex-col items-center justify-center">
+        <Box className="flex flex-col items-center justify-center">
           <h1 className="text-center text-2xl md:text-5xl text-[#222244] mb-8">
             Cadastre-se
           </h1>
@@ -100,28 +106,40 @@ export default function SignUp() {
                 '& .MuiTextField-root': { width: '100%' },
               }}
             >
-              <TextField
+              <CustomTextField
                 className="mb-4 lg:m-0"
                 type="text"
                 id="outlined-input-name"
                 label="Nome *"
                 variant="outlined"
                 {...register('name')}
+                error={getFieldState('name').invalid}
+                helperText={
+                  getFieldState('name').invalid ? 'Campo Inválido!' : ''
+                }
               />
-              <TextField
+              <CustomTextField
                 type="text"
                 id="outlined-input-surname"
                 label="Sobrenome *"
                 variant="outlined"
                 {...register('surname')}
+                error={getFieldState('surname').invalid}
+                helperText={
+                  getFieldState('surname').invalid ? 'Campo Inválido!' : ''
+                }
               />
             </Box>
-            <TextField
-              type="text"
+            <CustomTextField
+              type="email"
               id="outlined-input-email"
               label="Email address"
               variant="outlined"
               {...register('email')}
+              error={getFieldState('email').invalid}
+              helperText={
+                getFieldState('email').invalid ? 'Campo Inválido!' : ''
+              }
             />
             <FormControl variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
@@ -144,20 +162,29 @@ export default function SignUp() {
                 }
                 label="Password"
                 {...register('password')}
+                sx={{
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#E0E3E7',
+                  },
+                  '&:hover > .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#6F7E8C',
+                  },
+                }}
               />
             </FormControl>
             <Button
               type="submit"
-              className="h-[42px] text-white text-sm font-medium tracking-wide uppercase mt-4 bg-[#ff5522] hover:bg-[#cc4400]"
+              className="h-[42px] text-white text-sm font-bold tracking-wide uppercase mt-4 bg-[#ff5522] hover:bg-[#cc4400]"
               variant="contained"
               color="inherit"
               size="large"
+              disabled={!formState.isValid}
             >
               Cadastrar
             </Button>
           </form>
-        </div>
+        </Box>
       </section>
-    </main>
+    </Box>
   )
 }
