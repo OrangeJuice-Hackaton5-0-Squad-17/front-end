@@ -8,8 +8,6 @@ import Image from 'next/image'
 import {
   Box,
   FormControl,
-  InputLabel,
-  OutlinedInput,
   InputAdornment,
   IconButton,
   Button,
@@ -142,34 +140,25 @@ export default function SignUp() {
               }
             />
             <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
+              <CustomTextField
+                id="outlined-input-adornment-password"
                 type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 label="Password"
                 {...register('password')}
-                sx={{
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#E0E3E7',
-                  },
-                  '&:hover > .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#6F7E8C',
-                  },
-                }}
               />
             </FormControl>
             <Button
