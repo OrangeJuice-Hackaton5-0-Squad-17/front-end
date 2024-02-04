@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { OAuthContext, OAuthContextType } from '@/contexts/OAuthContext'
 
-export function useAuth(): OAuthContextType {
+export function useOAuth(): OAuthContextType {
   const context = useContext(OAuthContext)
 
   if (!context) {

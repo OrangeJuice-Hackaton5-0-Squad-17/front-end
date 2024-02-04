@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
 import Image from 'next/image'
 import {
   Box,
@@ -15,25 +15,14 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { toast } from 'react-toastify'
 
-import backgroundImg from '@/assets/images/background-sign-up.svg'
 import { CustomTextField } from '@/components/CustomTextField'
 
-const newAccountFormValidationSchema = zod.object({
-  name: zod.string().min(3),
-  surname: zod.string().min(3),
-  email: zod
-    .string()
-    .min(6, 'This field has to be filled!')
-    .email('This is not a valid email!'),
-  // .refine(
-  //   // eslint-disable-next-line
-  //   (email) => !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
-  //   'This email is not in our database!',
-  // ),
-  password: zod.string().min(8, 'Password needs to be at least 8 characters!'),
-})
+import {
+  createAccountFormValidationSchema,
+  CreateAccountFormData,
+} from '@/schema/createAccountSchema'
 
-type NewAccountFormData = zod.infer<typeof newAccountFormValidationSchema>
+import backgroundImg from '@/assets/images/background-sign-up.svg'
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -52,9 +41,9 @@ export default function SignUp() {
   }
 
   const { register, handleSubmit, watch, formState, getFieldState, reset } =
-    useForm<NewAccountFormData>({
+    useForm<CreateAccountFormData>({
       mode: 'all',
-      resolver: zodResolver(newAccountFormValidationSchema),
+      resolver: zodResolver(createAccountFormValidationSchema),
       defaultValues: {
         name: '',
         surname: '',
@@ -64,7 +53,7 @@ export default function SignUp() {
     })
 
   // eslint-disable-next-line
-  function handleCreateNewAccount(data: NewAccountFormData) {
+  function handleCreateNewAccount(data: CreateAccountFormData) {
     fetch('/accounts/create', { body: undefined })
       .then((response) => {
         return response.json()
@@ -171,6 +160,12 @@ export default function SignUp() {
             >
               Cadastrar
             </Button>
+            <Link
+              href="sign-in"
+              className="w-max flex items-start text-base text-[#92aef5]"
+            >
+              Já tenho uma conta
+            </Link>
           </form>
         </Box>
       </section>
