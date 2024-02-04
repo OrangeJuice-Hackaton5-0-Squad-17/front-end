@@ -1,74 +1,68 @@
 'use client'
 
-import { useState, useEffect, createContext, ReactNode } from 'react'
+import { createContext, useCallback, useState } from 'react'
 
-import { auth, firebase } from '@/services/firebase'
+import { api } from '@/services/api'
 
-type User = {
-  id: string
-  name: string
-  avatar: string
+interface AuthProviderProps {
+  children: React.ReactNode
 }
 
-type AuthContextType = {
-  user: User | undefined
-  signInWithGoogle: () => Promise<void>
+interface AuthState {
+  token: string
+  user: object
 }
 
-type AuthContextProviderProps = {
-  children: ReactNode
+interface SignInCredentials {
+  email: string
+  password: string
 }
 
-export const AuthContext = createContext({} as AuthContextType)
+export interface AuthContextData {
+  user: object
+  signIn(credentials: SignInCredentials): Promise<void>
+  signOut(): void
+}
 
-export function AuthContextProvider(props: AuthContextProviderProps) {
-  const [user, setUser] = useState<User>()
+export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const { displayName, photoURL, uid } = user
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [data, setData] = useState<AuthState>(() => {
+    const token = localStorage.getItem('@OrangePortfolios:token')
 
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account!')
-        }
+    const user = localStorage.getItem('@OrangePortfolios:user')
 
-        setUser({
-          id: uid,
-          name: displayName,
-          avatar: photoURL,
-        })
-      }
+    if (token && user) {
+      return { token, user: JSON.parse(user) }
+    }
+
+    return {} as AuthState
+  })
+
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    const response = await api.post('[resource]', {
+      email,
+      password,
     })
 
-    return () => {
-      unsubscribe()
-    }
+    const { token, user } = response.data
+
+    localStorage.setItem('@OrangePortfolios:token', token)
+    localStorage.setItem('@OrangePortfolios:user', JSON.stringify(user))
+
+    setData({ token, user })
   }, [])
 
-  async function signInWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider()
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@OrangePortfolios:token')
+    localStorage.removeItem('@OrangePortfolios:user')
 
-    const result = await auth.signInWithPopup(provider)
-
-    if (result.user) {
-      const { displayName, photoURL, uid } = result.user
-
-      if (!displayName || !photoURL) {
-        throw new Error('Missing information from Google Account')
-      }
-
-      setUser({
-        id: uid,
-        name: displayName,
-        avatar: photoURL,
-      })
-    }
-  }
+    setData({} as AuthState)
+  }, [])
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
-      {props.children}
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+      {children}
     </AuthContext.Provider>
   )
 }
