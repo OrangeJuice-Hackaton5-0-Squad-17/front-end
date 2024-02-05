@@ -28,6 +28,7 @@ export default function MyProjects() {
     <>
       <section
         className={`w-full flex flex-col items-center justify-center gap-6 mx-auto ${size.width <= 375 ? 'px-3' : 'px-8'}`}
+        data-aos="fade-up"
       >
         <Box className="w-[340px] h-[122px] flex flex-col items-center justify-center md:flex md:flex-row gap-8 mt-28 mb-10">
           <Image

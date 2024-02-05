@@ -3,10 +3,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
 import {
   Box,
   FormControl,
@@ -17,31 +16,24 @@ import {
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { toast } from 'react-toastify'
+import GoogleButton from 'react-google-button'
 
-import { useAuth } from '@/hooks/useAuth'
+import { useOAuth } from '@/hooks/useOAuth'
 
-import { GoogleSignInButton } from '@/components/GoogleSignInButton'
+// import { GoogleSignInButton } from '@/components/GoogleSignInButton'
 import { CustomTextField } from '@/components/CustomTextField'
+
+import {
+  signInAccountFormValidationSchema,
+  signInAccountFormData,
+} from '@/schema/signInAccountSchema'
 
 import backgroundImg from '@/assets/images/background-sign-in.svg'
 
-const newAccountFormValidationSchema = zod.object({
-  email: zod
-    .string()
-    .min(1, { message: 'This field has to be filled.' })
-    .email('This is not a valid email.')
-    .refine(
-      // eslint-disable-next-line
-      (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
-      'This email is not in our database',
-    ),
-  password: zod.string().min(8, 'Password needs to be at least 8 characters!'),
-})
-
-type NewAccountFormData = zod.infer<typeof newAccountFormValidationSchema>
-
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
+
+  const router = useRouter()
 
   const notifyUserAuthenticationFailed = () =>
     toast.error('Falha na autenticação', {
@@ -56,12 +48,12 @@ export default function SignIn() {
     event.preventDefault()
   }
 
-  const { user, signInWithGoogle } = useAuth()
+  const { user, signInWithGoogle } = useOAuth()
 
   const { register, handleSubmit, formState, watch, getFieldState, reset } =
-    useForm<NewAccountFormData>({
+    useForm<signInAccountFormData>({
       mode: 'all',
-      resolver: zodResolver(newAccountFormValidationSchema),
+      resolver: zodResolver(signInAccountFormValidationSchema),
       defaultValues: {
         email: '',
         password: '',
@@ -73,11 +65,11 @@ export default function SignIn() {
       await signInWithGoogle()
     }
 
-    redirect(`/${user?.id}/my-projects`)
+    router.push(`/my-projects`)
   }
 
   // eslint-disable-next-line
-  function handleCreateNewAccount(data: NewAccountFormData) {
+  function handleCreateNewAccount(data: signInAccountFormData) {
     fetch('/accounts/create', { body: undefined })
       .then((response) => {
         return response.json()
@@ -112,9 +104,10 @@ export default function SignIn() {
         <h1 className="text-2xl text-nowrap md:text-5xl text-[#222244]">
           Entre no Orange Portfólio
         </h1>
-        <GoogleSignInButton
+        {/* <GoogleSignInButton
           handleSignInWithProvider={handleSignInWithProvider}
-        />
+        /> */}
+        <GoogleButton className="mt-10" onClick={handleSignInWithProvider} />
         <form
           className="w-[312px] md:w-[517px] p-5 mt-4"
           onSubmit={handleSubmit(handleCreateNewAccount)}
@@ -175,7 +168,7 @@ export default function SignIn() {
             </Button>
             <Link
               href="sign-up"
-              className="w-full flex items-start text-base text-[#818388] mt-4"
+              className="w-max flex items-start text-base text-[#92aef5] mt-4"
             >
               Cadastre-se
             </Link>
