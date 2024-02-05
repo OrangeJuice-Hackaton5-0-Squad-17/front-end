@@ -28,14 +28,15 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@OrangePortfolios:token')
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('@OrangePortfolios:token')
 
-    const user = localStorage.getItem('@OrangePortfolios:user')
+      const user = localStorage.getItem('@OrangePortfolios:user')
 
-    if (token && user) {
-      return { token, user: JSON.parse(user) }
+      if (token && user) {
+        return { token, user: JSON.parse(user) }
+      }
     }
-
     return {} as AuthState
   })
 
