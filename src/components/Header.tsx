@@ -11,13 +11,14 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  Typography,
 } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 
+import { useAuth } from '@/hooks/useAuth'
 import { useWindowSize } from '@/hooks/useWindowsSize'
+import { navigate } from '@/app/actions'
 
 import logoImg from '@/assets/images/logo.svg'
 import profileImg from '@/assets/images/default-profile-picture.svg'
@@ -33,29 +34,32 @@ const pages = [
   },
 ]
 
-const profileOptions = [
-  {
-    label: 'Meu perfil',
-    path: 'my-profile',
-    isLinkOption: true,
-    handleOnClick: () => {},
-  },
-  {
-    label: 'Deslogar',
-    path: '/sign-in',
-    isLinkOption: false,
-    handleOnClick: () => {
-      // implement here the logout function
-    },
-  },
-]
-
 export function Header() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
+  const { signOut } = useAuth()
   const size = useWindowSize()
+
+  const profileOptions = [
+    {
+      label: 'Meu perfil',
+      path: 'my-profile',
+      isLinkOption: true,
+      handleOnClick: () => {},
+    },
+    {
+      label: 'Deslogar',
+      path: '/sign-in',
+      isLinkOption: false,
+      handleOnClick: () => {
+        signOut()
+
+        navigate('/sign-in')
+      },
+    },
+  ]
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)

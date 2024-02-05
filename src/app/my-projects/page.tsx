@@ -8,9 +8,16 @@ import { CreateProjectModal } from '@/components/CreateProjectModal'
 
 import profileImg from '@/assets/images/default-profile-picture.svg'
 import dropzoneIcon from '@/assets/images/dropzone-icon.svg'
+import { api } from '@/services/api'
 
 export default function MyProjects() {
   const [openedModal, setOpenedModal] = useState(false)
+
+  api.get('/user', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('@OrangePortfolios:token')}`,
+    }
+  })
 
   function handleOpenCreateProjectModal() {
     setOpenedModal(!openedModal)

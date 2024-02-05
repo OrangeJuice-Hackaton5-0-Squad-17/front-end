@@ -10,7 +10,6 @@ interface AuthProviderProps {
 
 interface AuthState {
   token: string
-  user: object
 }
 
 interface SignInCredentials {
@@ -19,7 +18,6 @@ interface SignInCredentials {
 }
 
 export interface AuthContextData {
-  user: object
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
 }
@@ -31,10 +29,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('@OrangePortfolios:token')
 
-      const user = localStorage.getItem('@OrangePortfolios:user')
-
-      if (token && user) {
-        return { token, user: JSON.parse(user) }
+      if (token) {
+        return { token }
       }
     }
     return {} as AuthState
@@ -46,23 +42,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password,
     })
 
-    const { token, user } = response.data
+    const { access_token: token } = response.data
 
     localStorage.setItem('@OrangePortfolios:token', token)
-    localStorage.setItem('@OrangePortfolios:user', JSON.stringify(user))
 
-    setData({ token, user })
+    setData({ token })
   }, [])
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@OrangePortfolios:token')
-    localStorage.removeItem('@OrangePortfolios:user')
 
     setData({} as AuthState)
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useAuth } from '@/hooks/useAuth'
 
 import Image from 'next/image'
 
@@ -23,6 +24,7 @@ export default function MyProfile() {
     setOpenedConfirmAccountDeletionModal,
   ] = useState(false)
   const [openedEditProfileModal, setOpenedEditProfileModal] = useState(false)
+  const { signOut } = useAuth()
 
   function handleOpenConfirmAccountDeletionModal() {
     setOpenedConfirmAccountDeletionModal(true)
@@ -65,7 +67,7 @@ export default function MyProfile() {
       label: 'Deslogar',
       icon: LogoutIcon,
       handleOnClick: () => {
-        // logout logic
+        signOut()
 
         navigate('/sign-in')
       },

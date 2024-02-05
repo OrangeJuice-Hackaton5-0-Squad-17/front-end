@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
@@ -15,6 +16,8 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { toast } from 'react-toastify'
 
+import { api } from '@/services/api'
+
 import { CustomTextField } from '@/components/CustomTextField'
 
 import {
@@ -23,10 +26,11 @@ import {
 } from '@/schema/createAccountSchema'
 
 import backgroundImg from '@/assets/images/background-sign-up.svg'
-import { api } from '@/services/api'
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
+
+  const router = useRouter()
 
   const notifyUserAccountCreated = () =>
     toast.success('Cadastro feito com sucesso', {
@@ -54,12 +58,16 @@ export default function SignUp() {
     })
 
   // eslint-disable-next-line
-  function handleCreateNewAccount(data: CreateAccountFormData) {
-    api.post('/user', data)
+  async function handleCreateNewAccount(data: CreateAccountFormData) {
+    await api.post('/user', data)
 
     reset()
 
     notifyUserAccountCreated()
+
+    setTimeout(() => {
+      router.push('/sign-in')
+    }, 2000)
   }
 
   const name = watch('name')
