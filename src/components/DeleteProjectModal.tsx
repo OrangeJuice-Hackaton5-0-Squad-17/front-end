@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -23,7 +24,7 @@ export function DeleteProjectModal() {
   }
 
   return (
-    <div className="min-h-screen">
+    <Box className="min-h-screen">
       <Button variant="outlined" onClick={handleOpenDeleteProjectModal}>
         <FaTrashAlt />
       </Button>
@@ -33,11 +34,11 @@ export function DeleteProjectModal() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <div>
+            <Box>
               <h1 className="text-base text-[#515255]">
                 Se você prosseguir irá excluir o projeto do {'\n'}seu portfólio
               </h1>
-            </div>
+            </Box>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -56,6 +57,6 @@ export function DeleteProjectModal() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   )
 }

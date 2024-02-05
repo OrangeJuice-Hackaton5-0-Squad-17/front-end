@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import { ToastContainer } from 'react-toastify'
 
 import '@/services/firebase'
 
 import { AOSInit } from '@/app/aos'
 
-import { AuthContextProvider } from '@/contexts/AuthContext'
+import { OAuthContextProvider } from '@/contexts/OAuthContext'
+
+import 'react-toastify/ReactToastify.css'
 
 import './globals.css'
 
@@ -36,10 +39,11 @@ export default function RootLayout({
       </head>
       <AOSInit />
       <body className={roboto.className}>
-        <AuthContextProvider>
+        <OAuthContextProvider>
           <Header />
           <Main>{children}</Main>
-        </AuthContextProvider>
+          <ToastContainer />
+        </OAuthContextProvider>
       </body>
     </html>
   )

@@ -1,7 +1,10 @@
 'use client'
 
+// import { notFound } from 'next/navigation'
+
 import Image from 'next/image'
 import { useState } from 'react'
+
 import ProjectImageMock from '@/assets/images/project-image-mock.webp'
 import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 
@@ -9,7 +12,7 @@ export default function ProjectDetails({
   params,
 }: {
   params: {
-    projectId: String
+    projectId: string
   }
 }) {
   const [projectId, setProjectId] = useState(params.projectId)

@@ -28,7 +28,7 @@ export function DetailsProjectModal() {
   }
 
   return (
-    <div>
+    <Box>
       <Button
         variant="contained"
         onClick={handleOpenDetailsProjectModal}
@@ -52,10 +52,12 @@ export function DetailsProjectModal() {
                   src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
                 />
                 <Box className="flex flex-col justify-center ml-2">
-                  <span className="text-base text-[#303133] font-bold">
+                  <Typography className="text-base text-[#303133] font-bold">
                     Camila Soares
-                  </span>
-                  <span className="text-base text-[#515255]">12 / 12</span>
+                  </Typography>
+                  <Typography className="text-base text-[#515255]">
+                    12 / 12
+                  </Typography>
                 </Box>
               </Box>
               <Typography
@@ -109,6 +111,6 @@ export function DetailsProjectModal() {
           </Box>
         </Box>
       </Modal>
-    </div>
+    </Box>
   )
 }
