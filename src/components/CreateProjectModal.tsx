@@ -20,11 +20,11 @@ interface CreateProjectModalProps {
 }
 
 interface CreateProjectFormDataProps {
-  image?: File | null
   title: string
   tags: string
   link: string
   description: string
+  image?: File | undefined
 }
 
 const formInputTypes = ['title', 'tags', 'link', 'description'] as const
@@ -48,7 +48,7 @@ export function CreateProjectModal({
       tags: '',
       link: '',
       description: '',
-      image: null,
+      image: undefined,
     },
   })
 
@@ -59,6 +59,7 @@ export function CreateProjectModal({
   }
 
   const onSubmit: SubmitHandler<CreateProjectFormDataProps> = (data) => {
+    localStorage.setItem('formSubmit', JSON.stringify(data))
     console.log('Form submitted:', data)
 
     handleCloseCreateProjectModal()
@@ -86,7 +87,7 @@ export function CreateProjectModal({
           >
             Adicionar projeto
           </Typography>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={() => handleSubmit(onSubmit)}>
             <Box className="flex flex-col md:flex-row">
               <ImageDropzone onDrop={handleImageDrop} />
               <Box className="w-full md:w-[413px] flex flex-col items-center justify-end mx-auto">

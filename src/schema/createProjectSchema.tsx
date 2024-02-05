@@ -11,13 +11,12 @@ const ACCEPTED_IMAGE_TYPES = [
 
 export const createProjectFormSchema = zod.object({
   image: zod
-    .any()
+    .custom<File>((file) => file instanceof File, {
+      message: 'File is required.',
+    })
+    .refine((files) => files?.size <= MAX_FILE_SIZE, `Max image size is 5MB!`)
     .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max image size is 5MB!`,
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
       'Only .jpg, .jpeg, .png and .webp formats are supported.',
     ),
   title: zod.string().min(1).max(50),
