@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import Image from 'next/image'
 
+import { navigate } from '../actions'
+
 import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 
 import EditIcon from '@mui/icons-material/Edit'
@@ -63,7 +65,9 @@ export default function MyProfile() {
       label: 'Deslogar',
       icon: LogoutIcon,
       handleOnClick: () => {
-        // implement the logout function here
+        // logout logic
+
+        navigate('/sign-in')
       },
     },
   ]

@@ -40,7 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   })
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post('[resource]', {
+    const response = await api.post('/login', {
       email,
       password,
     })

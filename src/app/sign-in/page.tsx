@@ -21,6 +21,7 @@ import GoogleButton from 'react-google-button'
 
 import { useOAuth } from '@/hooks/useOAuth'
 
+import { useAuth } from '@/hooks/useAuth'
 // import { GoogleSignInButton } from '@/components/GoogleSignInButton'
 import { CustomTextField } from '@/components/CustomTextField'
 
@@ -49,6 +50,7 @@ export default function SignIn() {
     event.preventDefault()
   }
 
+  const { signIn } = useAuth()
   const { user, signInWithGoogle } = useOAuth()
 
   const { register, handleSubmit, formState, watch, getFieldState, reset } =
@@ -66,23 +68,16 @@ export default function SignIn() {
       await signInWithGoogle()
     }
 
-    router.push(`/my-projects`)
+    router.push('/my-projects')
   }
 
   // eslint-disable-next-line
-  function handleCreateNewAccount(data: signInAccountFormData) {
-    fetch('/accounts/create', { body: undefined })
-      .then((response) => {
-        return response.json()
-      })
-      .catch((error) => {
-        console.log(error, formState.errors)
-
-        notifyUserAuthenticationFailed()
-        throw new Error()
-      })
+  async function handleCreateNewAccount(data: signInAccountFormData) {
+    await signIn(data)
 
     reset()
+
+    router.push('/my-projects')
   }
 
   const email = watch('email')

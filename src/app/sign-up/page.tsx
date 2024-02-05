@@ -23,6 +23,7 @@ import {
 } from '@/schema/createAccountSchema'
 
 import backgroundImg from '@/assets/images/background-sign-up.svg'
+import { api } from '@/services/api'
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -54,13 +55,7 @@ export default function SignUp() {
 
   // eslint-disable-next-line
   function handleCreateNewAccount(data: CreateAccountFormData) {
-    fetch('/accounts/create', { body: undefined })
-      .then((response) => {
-        return response.json()
-      })
-      .catch((error) => {
-        console.error(error, formState.errors)
-      })
+    api.post('/user', data)
 
     reset()
 
