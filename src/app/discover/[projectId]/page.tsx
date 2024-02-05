@@ -1,9 +1,12 @@
+'use client'
+
 // import { notFound } from 'next/navigation'
+
 import Image from 'next/image'
 import { useState } from 'react'
 
 import ProjectImageMock from '@/assets/images/project-image-mock.webp'
-import ProfilePicture from '../../../../public/assets/profile-picture.png'
+import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 
 export default function ProjectDetails({
   params,

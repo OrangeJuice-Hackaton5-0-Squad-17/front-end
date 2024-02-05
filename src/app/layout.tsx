@@ -8,11 +8,12 @@ import { AOSInit } from '@/app/aos'
 
 import { OAuthContextProvider } from '@/contexts/OAuthContext'
 
-// import { Header } from '@/components/Header'
-
 import 'react-toastify/ReactToastify.css'
 
 import './globals.css'
+
+import { Header } from '@/components/Header'
+import { Main } from '@/components/Main'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -39,8 +40,8 @@ export default function RootLayout({
       <AOSInit />
       <body className={roboto.className}>
         <OAuthContextProvider>
-          {/* <Header /> */}
-          <main className="max-w-7xl mx-auto py-2">{children}</main>
+          <Header />
+          <Main>{children}</Main>
           <ToastContainer />
         </OAuthContextProvider>
       </body>

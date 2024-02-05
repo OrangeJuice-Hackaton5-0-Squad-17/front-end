@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+
 import {
   Box,
   Toolbar,
@@ -12,6 +13,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
+
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 
@@ -28,6 +30,23 @@ const pages = [
   {
     label: 'Descobrir',
     path: 'discover',
+  },
+]
+
+const profileOptions = [
+  {
+    label: 'Meu perfil',
+    path: 'my-profile',
+    isLinkOption: true,
+    handleOnClick: () => {},
+  },
+  {
+    label: 'Deslogar',
+    path: '/sign-in',
+    isLinkOption: false,
+    handleOnClick: () => {
+      // implement here the logout function
+    },
   },
 ]
 
@@ -66,6 +85,7 @@ export function Header() {
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
             color="inherit"
+            className="pl-0"
           >
             <MenuIcon />
           </IconButton>
@@ -121,8 +141,10 @@ export function Header() {
             </button>
           ))}
         </Box>
-        <Box className="flex items-center gap-4 ml-auto">
-          <Tooltip title="profile options">
+
+        <div className="flex items-center gap-4 ml-auto">
+          <Tooltip title="Opções de Perfil">
+
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Image
                 className="rounded-full"
@@ -149,9 +171,28 @@ export function Header() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography className="text-center">Logout</Typography>
-            </MenuItem>
+            {profileOptions.map((profileOption) =>
+              profileOption.isLinkOption ? (
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  key={profileOption.label}
+                >
+                  <Link className="block" href={profileOption.path}>
+                    {profileOption.label}
+                  </Link>
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    handleCloseUserMenu()
+                    profileOption.handleOnClick()
+                  }}
+                  key={profileOption.label}
+                >
+                  <p className="block w-full">{profileOption.label}</p>
+                </MenuItem>
+              ),
+            )}
           </Menu>
         </Box>
         <NotificationsIcon className="ml-4" />

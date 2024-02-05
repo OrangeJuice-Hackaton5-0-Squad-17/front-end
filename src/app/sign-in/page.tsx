@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -78,7 +79,6 @@ export default function SignIn() {
         console.log(error, formState.errors)
 
         notifyUserAuthenticationFailed()
-
         throw new Error()
       })
 
@@ -104,6 +104,7 @@ export default function SignIn() {
         <h1 className="text-2xl text-nowrap md:text-5xl text-[#222244]">
           Entre no Orange Portfólio
         </h1>
+        
         {/* <GoogleSignInButton
           handleSignInWithProvider={handleSignInWithProvider}
         /> */}
@@ -168,13 +169,13 @@ export default function SignIn() {
             </Button>
             <Link
               href="sign-up"
-              className="w-max flex items-start text-base text-[#92aef5] mt-4"
+              className="w-full flex items-start text-base text-[#92aef5] mt-4"
             >
               Cadastre-se
             </Link>
-          </Box>
+          </div>
         </form>
       </section>
-    </Box>
+    </div>
   )
 }
