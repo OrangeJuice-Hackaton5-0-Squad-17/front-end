@@ -88,7 +88,7 @@ export default function SignIn() {
   const email = watch('email')
 
   return (
-    <Box className="min-h-screen w-full flex items-center justify-center p-4">
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
       <aside data-aos="fade-right" className="hidden lg:inline lg:w-[549px]">
         <Image
           src={backgroundImg}
@@ -97,6 +97,7 @@ export default function SignIn() {
           priority
         />
       </aside>
+
       <section
         data-aos="fade-left"
         className="flex flex-1 flex-col items-center justify-center p-6"
@@ -104,7 +105,7 @@ export default function SignIn() {
         <h1 className="text-2xl text-nowrap md:text-5xl text-[#222244]">
           Entre no Orange Portfólio
         </h1>
-        
+
         {/* <GoogleSignInButton
           handleSignInWithProvider={handleSignInWithProvider}
         /> */}
@@ -173,7 +174,7 @@ export default function SignIn() {
             >
               Cadastre-se
             </Link>
-          </div>
+          </Box>
         </form>
       </section>
     </div>

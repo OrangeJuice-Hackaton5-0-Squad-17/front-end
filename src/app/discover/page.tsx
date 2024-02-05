@@ -3,19 +3,12 @@
 import Image from 'next/image'
 import { Avatar, Box, Chip, Stack, TextField } from '@mui/material'
 
-import { useWindowSize } from '@/hooks/useWindowsSize'
-
 import { mockUsersData } from '@/lib/constants'
 
 export default function Discover() {
-  const size = useWindowSize()
-
   return (
     <>
-      <article
-        className={`min-h-screen w-full ${size.width <= 375 ? 'px-3' : 'px-8'}`}
-        data-aos="fade-up"
-      >
+      <article className={`min-h-screen w-full`}>
         <section className="max-w-[1220px]">
           <h2 className="w-full lg:w-[744px] text-[#222244] text-3xl text-center mx-auto mb-28 mt-[112px]">
             Junte-se à comunidade de inovação, inspiração e descobertas,

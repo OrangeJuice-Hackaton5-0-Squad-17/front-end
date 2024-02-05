@@ -119,6 +119,7 @@ export function Header() {
             ))}
           </Menu>
         </Box>
+
         <Link className="mr-24" href="my-projects">
           <Image
             src={logoImg}
@@ -127,6 +128,7 @@ export function Header() {
             priority
           />
         </Link>
+
         <Box
           sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: '24px' }}
         >
@@ -144,7 +146,6 @@ export function Header() {
 
         <div className="flex items-center gap-4 ml-auto">
           <Tooltip title="Opções de Perfil">
-
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Image
                 className="rounded-full"
@@ -194,7 +195,7 @@ export function Header() {
               ),
             )}
           </Menu>
-        </Box>
+        </div>
         <NotificationsIcon className="ml-4" />
       </Toolbar>
     </header>

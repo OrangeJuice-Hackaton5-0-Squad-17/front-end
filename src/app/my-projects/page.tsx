@@ -4,8 +4,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Box, Button, TextField, Typography } from '@mui/material'
 
-import { useWindowSize } from '@/hooks/useWindowsSize'
-
 import { CreateProjectModal } from '@/components/CreateProjectModal'
 
 import profileImg from '@/assets/images/default-profile-picture.svg'
@@ -13,8 +11,6 @@ import dropzoneIcon from '@/assets/images/dropzone-icon.svg'
 
 export default function MyProjects() {
   const [openedModal, setOpenedModal] = useState(false)
-
-  const size = useWindowSize()
 
   function handleOpenCreateProjectModal() {
     setOpenedModal(!openedModal)
@@ -27,10 +23,9 @@ export default function MyProjects() {
   return (
     <>
       <section
-        className={`w-full flex flex-col items-center justify-center gap-6 mx-auto ${size.width <= 375 ? 'px-3' : 'px-8'}`}
-        data-aos="fade-up"
+        className={`w-full flex flex-col items-center justify-center gap-6 mx-auto`}
       >
-        <Box className="w-[340px] h-[122px] flex flex-col items-center justify-center md:flex md:flex-row gap-8 mt-28 mb-10">
+        <Box className="w-[340px] h-[122px] flex flex-col items-center justify-center md:flex md:flex-row gap-8 mt-14">
           <Image
             className="rounded-full self-center"
             src={profileImg}
