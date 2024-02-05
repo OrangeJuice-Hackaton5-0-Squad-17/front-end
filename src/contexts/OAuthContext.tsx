@@ -21,7 +21,7 @@ type OAuthContextProviderProps = {
 
 export const OAuthContext = createContext({} as OAuthContextType)
 
-export function AuthContextProvider(props: OAuthContextProviderProps) {
+export function OAuthContextProvider(props: OAuthContextProviderProps) {
   const [user, setUser] = useState<User>()
 
   useEffect(() => {

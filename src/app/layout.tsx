@@ -6,7 +6,7 @@ import '@/services/firebase'
 
 import { AOSInit } from '@/app/aos'
 
-import { AuthContextProvider } from '@/contexts/AuthContext'
+import { OAuthContextProvider } from '@/contexts/OAuthContext'
 
 // import { Header } from '@/components/Header'
 
@@ -38,11 +38,11 @@ export default function RootLayout({
       </head>
       <AOSInit />
       <body className={roboto.className}>
-        <AuthContextProvider>
+        <OAuthContextProvider>
           {/* <Header /> */}
           <main className="max-w-7xl mx-auto py-2">{children}</main>
           <ToastContainer />
-        </AuthContextProvider>
+        </OAuthContextProvider>
       </body>
     </html>
   )
