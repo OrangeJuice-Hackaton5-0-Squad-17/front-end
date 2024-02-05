@@ -6,14 +6,14 @@ import '@/services/firebase'
 
 import { AOSInit } from '@/app/aos'
 
-import { OAuthContextProvider } from '@/contexts/OAuthContext'
+import { AppProvider } from '@/contexts'
+
+import { Header } from '@/components/Header'
+import { Main } from '@/components/Main'
 
 import 'react-toastify/ReactToastify.css'
 
 import './globals.css'
-
-import { Header } from '@/components/Header'
-import { Main } from '@/components/Main'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -38,13 +38,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
       </head>
       <AOSInit />
-      
       <body className={roboto.className}>
-        <OAuthContextProvider>
+        <AppProvider>
           <Header />
           <Main>{children}</Main>
           <ToastContainer />
-        </OAuthContextProvider>
+        </AppProvider>
       </body>
     </html>
   )
