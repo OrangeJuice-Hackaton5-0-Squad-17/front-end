@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 
 import Image from 'next/image'
@@ -24,7 +24,11 @@ export default function MyProfile() {
     setOpenedConfirmAccountDeletionModal,
   ] = useState(false)
   const [openedEditProfileModal, setOpenedEditProfileModal] = useState(false)
-  const { signOut } = useAuth()
+  const { signOut, getUser, user } = useAuth()
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   function handleOpenConfirmAccountDeletionModal() {
     setOpenedConfirmAccountDeletionModal(true)
@@ -45,12 +49,12 @@ export default function MyProfile() {
   const userData = [
     {
       label: 'Nome Completo',
-      value: 'Camila Soares',
+      value: user?.name,
       icon: <PersonIcon />,
     },
     {
       label: 'E-mail',
-      value: 'camila.soares@gmail.com',
+      value: user?.email,
       icon: <MailOutlineIcon />,
     },
   ]

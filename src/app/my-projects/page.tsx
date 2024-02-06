@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Box, Button, TextField, Typography } from '@mui/material'
 
@@ -9,15 +9,15 @@ import { CreateProjectModal } from '@/components/CreateProjectModal'
 import profileImg from '@/assets/images/default-profile-picture.svg'
 import dropzoneIcon from '@/assets/images/dropzone-icon.svg'
 import { api } from '@/services/api'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function MyProjects() {
   const [openedModal, setOpenedModal] = useState(false)
+  const { getUser, user } = useAuth()
 
-  api.get('/user', {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('@OrangePortfolios:token')}`,
-    }
-  })
+  useEffect(() => {
+    getUser()
+  }, [])
 
   function handleOpenCreateProjectModal() {
     setOpenedModal(!openedModal)
@@ -42,7 +42,7 @@ export default function MyProjects() {
           />
           <Box className="md:w-full text-center">
             <Box className="flex flex-col items-start">
-              <h2 className="text-[#303133] text-2xl mb-2">Camila Soares</h2>
+              <h2 className="text-[#303133] text-2xl mb-2">{user?.name}</h2>
               <Typography className="text-[#939393] text-base mb-4">
                 Brasil
               </Typography>

@@ -2,6 +2,9 @@
 
 import { Button, Modal, Box, Typography } from '@mui/material'
 import { redirect } from 'next/navigation'
+import { api } from '@/services/api'
+import { useAuth } from '@/hooks/useAuth'
+import { navigate } from '@/app/actions'
 
 type ConfirmAccountDeletionModalProps = {
   openedModal: boolean
@@ -12,13 +15,22 @@ export function ConfirmAccountDeletionModal({
   openedModal,
   handleCloseTheConfirmAccountDeletionModal,
 }: ConfirmAccountDeletionModalProps) {
-  function handleAccountDeletion() {
-    // add delete account feature here
+  const { signOut, user } = useAuth()
 
-    // close modal:
+  async function handleAccountDeletion() {
+    const token = localStorage.getItem('@OrangePortfolios:token')
+
+    const response = await api.delete(`/user/${user?.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
     handleCloseTheConfirmAccountDeletionModal()
 
-    redirect('/sign-in')
+    signOut()
+
+    navigate('/sign-in')
   }
 
   return (
