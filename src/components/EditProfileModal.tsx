@@ -1,14 +1,14 @@
 'use client'
 
-import { Button, Modal, Box, Typography, TextField } from '@mui/material'
-
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useState } from 'react'
-
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Modal, Box, Typography, TextField } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+
+import { useAuth } from '@/hooks/useAuth'
 
 interface EditProfileDataProps {
   name: string
@@ -46,12 +46,9 @@ export function EditProfileModal({
     password: '12345678',
   }
 
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    formState: { errors },
-  } = useForm<EditProfileData>({
+  const { updateUser } = useAuth()
+
+  const { handleSubmit, control } = useForm<EditProfileData>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
       ...userDataMock,
@@ -60,17 +57,16 @@ export function EditProfileModal({
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  function handleEditProfile() {
-    // validation first, then save new user data
+  async function handleEditProfile(data: EditProfileData) {
+    await updateUser(data)
 
-    // close modal:
     handleCloseEditProfileModal()
   }
 
-  const onSubmit: SubmitHandler<EditProfileDataProps> = (data) => {
+  const onSubmit: SubmitHandler<EditProfileDataProps> = async (data) => {
     console.log('Form submitted:', data)
 
-    // handleEditProfile()
+    await handleEditProfile(data)
   }
 
   return (

@@ -3,6 +3,7 @@
 import { createContext, useCallback, useState } from 'react'
 
 import { api } from '@/services/api'
+
 import { User } from '@/models/user'
 
 interface AuthProviderProps {
@@ -20,6 +21,7 @@ interface SignInCredentials {
 
 export interface AuthContextData {
   getUser: () => Promise<void>
+  updateUser: (user: Omit<User, 'id'>) => Promise<void>
   user: User | null
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
@@ -58,6 +60,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser(userData)
   }, [])
 
+  const updateUser = useCallback(
+    async (data: User) => {
+      const token = localStorage.getItem('@OrangePortfolios:token')
+
+      const response = await api.patch(`/user/${user?.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const userData = {
+        id: response.data.user.id,
+        name: response.data.user.name,
+        email: response.data.user.email,
+      }
+
+      setUser(userData)
+    },
+    [user],
+  )
+
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post('/login', {
       email,
@@ -79,7 +102,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ getUser, user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ getUser, updateUser, user, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   )

@@ -1,15 +1,6 @@
 'use client'
 
-import {
-  Modal,
-  Box,
-  Typography,
-  Button,
-  Chip,
-  Stack,
-  Avatar,
-} from '@mui/material'
-import { RiPencilFill } from 'react-icons/ri'
+import { Modal, Box, Typography, Chip, Stack, Avatar } from '@mui/material'
 import { IoCloseSharp } from 'react-icons/io5'
 import Image from 'next/image'
 
@@ -23,18 +14,10 @@ interface DetailsProjectModal {
 
 export function DetailsProjectModal({
   openedModal,
-  handleOpenDetailsProjectModal,
   handleCloseDetailsProjectModal,
 }: DetailsProjectModal) {
   return (
     <Box>
-      <Button
-        variant="contained"
-        onClick={handleOpenDetailsProjectModal}
-        className="w-14 h-14 mt-4 aspect-square rounded-full bg-[#ffcc99] hover:bg-[#fac086] shrink-0 grow-0"
-      >
-        <RiPencilFill size={18} color="#303133" />
-      </Button>
       <Modal
         open={openedModal}
         onClose={handleCloseDetailsProjectModal}

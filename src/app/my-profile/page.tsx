@@ -28,7 +28,7 @@ export default function MyProfile() {
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [getUser])
 
   function handleOpenConfirmAccountDeletionModal() {
     setOpenedConfirmAccountDeletionModal(true)
