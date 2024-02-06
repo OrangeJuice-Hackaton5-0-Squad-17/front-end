@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Modal,
   Box,
@@ -16,17 +15,17 @@ import Image from 'next/image'
 
 import descriptionImg from '@/assets/images/background-details-modal.svg'
 
-export function DetailsProjectModal() {
-  const [modalOpened, setModalOpened] = useState(false)
+interface DetailsProjectModal {
+  openedModal: boolean
+  handleOpenDetailsProjectModal: () => void
+  handleCloseDetailsProjectModal: () => void
+}
 
-  const handleOpenDetailsProjectModal = () => {
-    setModalOpened(true)
-  }
-
-  const handleCloseDetailsProjectModal = () => {
-    setModalOpened(false)
-  }
-
+export function DetailsProjectModal({
+  openedModal,
+  handleOpenDetailsProjectModal,
+  handleCloseDetailsProjectModal,
+}: DetailsProjectModal) {
   return (
     <Box>
       <Button
@@ -37,7 +36,7 @@ export function DetailsProjectModal() {
         <RiPencilFill size={18} color="#303133" />
       </Button>
       <Modal
-        open={modalOpened}
+        open={openedModal}
         onClose={handleCloseDetailsProjectModal}
         aria-labelledby="responsive-details-modal-title"
         aria-describedby="responsive-details-modal-description"

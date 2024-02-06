@@ -1,11 +1,23 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { Avatar, Box, Chip, Stack, TextField } from '@mui/material'
+
+import { DetailsProjectModal } from '@/components/DetailsProjectModal'
 
 import { mockUsersData } from '@/lib/constants'
 
 export default function Discover() {
+  const [openedModal, setModalOpened] = useState(false)
+
+  const handleOpenDetailsProjectModal = () => {
+    setModalOpened(true)
+  }
+
+  const handleCloseDetailsProjectModal = () => {
+    setModalOpened(false)
+  }
   return (
     <>
       <article className={`min-h-screen w-full`}>
@@ -20,9 +32,13 @@ export default function Discover() {
               type="text"
               placeholder="Buscar tags"
             />
-            <Box className="w-full lg:max-w-[1120px] flex flex-col items-center justify-center md:grid md:grid-cols-2 md:place-items-start md:ml-3 lg:grid lg:grid-cols-3 lg:place-items-start lg:justify-between gap-6 mt-10">
+            <Box className="w-full lg:max-w-[1120px] flex flex-col items-center justify-center md:grid md:grid-cols-2 md:place-items-center md:ml-3 lg:grid lg:grid-cols-3 lg:place-items-start lg:justify-between gap-6 mt-10">
               {mockUsersData.map((user, index) => (
-                <Box key={index} className="w-[312px] h-[290px] block">
+                <Box
+                  onClick={handleOpenDetailsProjectModal}
+                  key={index}
+                  className="w-[312px] h-[290px] block"
+                >
                   <Image
                     className="rounded"
                     src={user.image}
@@ -47,6 +63,11 @@ export default function Discover() {
               ))}
             </Box>
           </Box>
+          <DetailsProjectModal
+            openedModal={openedModal}
+            handleOpenDetailsProjectModal={handleOpenDetailsProjectModal}
+            handleCloseDetailsProjectModal={handleCloseDetailsProjectModal}
+          />
         </section>
       </article>
     </>

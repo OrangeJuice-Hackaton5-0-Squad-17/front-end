@@ -8,7 +8,6 @@ import { CreateProjectModal } from '@/components/CreateProjectModal'
 
 import profileImg from '@/assets/images/default-profile-picture.svg'
 import dropzoneIcon from '@/assets/images/dropzone-icon.svg'
-import { api } from '@/services/api'
 import { useAuth } from '@/hooks/useAuth'
 
 export default function MyProjects() {
@@ -17,7 +16,7 @@ export default function MyProjects() {
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [getUser])
 
   function handleOpenCreateProjectModal() {
     setOpenedModal(!openedModal)
