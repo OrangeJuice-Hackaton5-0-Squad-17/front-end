@@ -1,62 +1,64 @@
 'use client'
 
-import { useState } from 'react'
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useMediaQuery,
 } from '@mui/material'
-import { FaTrashAlt } from 'react-icons/fa'
+import { useTheme } from '@mui/material/styles'
 
-export function DeleteProjectModal() {
-  const [openedModal, setOpenedModal] = useState(false)
+interface DeleteProjectModal {
+  openedModal: boolean
+  handleCloseDeleteProjectModal: () => void
+}
 
-  function handleOpenDeleteProjectModal() {
-    setOpenedModal(true)
-  }
+export function DeleteProjectModal({
+  openedModal,
+  handleCloseDeleteProjectModal,
+}: DeleteProjectModal) {
+  const theme = useTheme()
 
-  function handleCloseDeleteProjectModal() {
-    setOpenedModal(false)
-  }
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
-    <Box className="min-h-screen">
-      <Button variant="outlined" onClick={handleOpenDeleteProjectModal}>
-        <FaTrashAlt />
-      </Button>
-      <Dialog open={openedModal} onClose={handleCloseDeleteProjectModal}>
+    <>
+      <Dialog
+        fullScreen={fullScreen}
+        open={openedModal}
+        onClose={handleCloseDeleteProjectModal}
+        aria-labelledby="responsive-dialog-title"
+      >
         <DialogTitle className="text-2xl text-[#515255]">
           Deseja Excluir?
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <Box>
-              <h1 className="text-base text-[#515255]">
-                Se você prosseguir irá excluir o projeto do {'\n'}seu portfólio
-              </h1>
-            </Box>
+            <h1 className="text-base text-[#515255]">
+              Se você prosseguir irá excluir o projeto do {'\n'}seu portfólio
+            </h1>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
+            autoFocus
             className="h-[42px] w-[106px] bg-[#ff5522] hover:bg-[#cc4400] text-white text-base font-semibold uppercase"
             onClick={handleCloseDeleteProjectModal}
           >
             Excluir
           </Button>
           <Button
+            autoFocus
             className="h-[42px] w-[124px] bg-[#dddee0] hover:bg-[#d3d3d3] text-[#818388] text-base font-semibold uppercase"
             onClick={handleCloseDeleteProjectModal}
-            autoFocus
           >
             Cancelar
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </>
   )
 }

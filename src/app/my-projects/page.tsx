@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Box, Button, TextField, Typography } from '@mui/material'
 
+import { useAuth } from '@/hooks/useAuth'
+
 import { CreateProjectModal } from '@/components/CreateProjectModal'
 
 import profileImg from '@/assets/images/default-profile-picture.svg'
 import dropzoneIcon from '@/assets/images/dropzone-icon.svg'
-import { useAuth } from '@/hooks/useAuth'
 
 export default function MyProjects() {
   const [openedModal, setOpenedModal] = useState(false)

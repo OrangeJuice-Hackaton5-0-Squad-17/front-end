@@ -8,7 +8,6 @@ import { AOSInit } from '@/app/aos'
 
 import { AppProvider } from '@/contexts'
 
-import { Header } from '@/components/Header'
 import { Main } from '@/components/Main'
 
 import 'react-toastify/ReactToastify.css'
@@ -40,7 +39,6 @@ export default function RootLayout({
       <AOSInit />
       <body className={roboto.className}>
         <AppProvider>
-          <Header />
           <Main>{children}</Main>
           <ToastContainer />
         </AppProvider>
