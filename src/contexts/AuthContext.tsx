@@ -61,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   const updateUser = useCallback(
-    async (data: User) => {
+    async (data: Omit<User, 'id'>) => {
       const token = localStorage.getItem('@OrangePortfolios:token')
 
       const response = await api.patch(`/user/${user?.id}`, data, {

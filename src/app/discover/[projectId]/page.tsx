@@ -5,7 +5,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-import ProjectImageMock from '@/assets/images/project-image-mock.webp'
+import ProjectImageMock from '@/assets/images/background-details-modal.svg'
 import ProfilePicture from '@/assets/images/default-profile-picture.svg'
 
 export default function ProjectDetails({

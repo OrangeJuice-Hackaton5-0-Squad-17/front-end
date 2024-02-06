@@ -47,6 +47,7 @@ export function Header() {
       label: 'Meu perfil',
       path: 'my-profile',
       isLinkOption: true,
+      // eslint-disable-next-line
       handleOnClick: () => {},
     },
     {
